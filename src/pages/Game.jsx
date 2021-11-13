@@ -13,7 +13,7 @@ export function Game() {
                     <Board />
                 </div>
                 <div>
-                    <h3>Opponent’s Board</h3>
+                    <h3>Opponent’s Board 2</h3>
                     <Board />
                 </div>
             </div>
