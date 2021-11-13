@@ -1,0 +1,12 @@
+#nav {
+    height: 30px;
+    width: 100%;
+    background-color: bisque;
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-items: center;
+    align-items: center;
+}
+

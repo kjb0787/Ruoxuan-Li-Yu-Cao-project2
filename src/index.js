@@ -1,15 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import Home from './pages/Home';
+import Rules from './pages/Rules';
+import { Game } from './pages/Game';
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/rules" element={<Rules />} />
+          <Route exact path="/game" element={<Game />} />
+        </Routes>
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
@@ -18,4 +27,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();
