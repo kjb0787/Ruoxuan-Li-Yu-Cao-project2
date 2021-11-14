@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
 import Home from './pages/Home';
 import Rules from './pages/Rules';
 import { Game } from './pages/Game';
+import reducers from './reducers/reducers';
+import { createStore} from 'redux';
 
+const store = createStore(reducers);
 
 ReactDOM.render(
   <React.StrictMode>
