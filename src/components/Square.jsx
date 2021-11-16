@@ -1,10 +1,11 @@
 import React from 'react';
 import './Square.css';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export function Square(props) {
     const dispatch = useDispatch();
-    const symbol = props.symbol;
+    const boardState = useSelector((state) => state.game);
     return (
         <div onClick={() => {
             dispatch({
@@ -14,6 +15,6 @@ export function Square(props) {
             })
         }
         } id="square">
-            {symbol}
+            {boardState[props.x][props.y].symbol}
         </div>);
 }

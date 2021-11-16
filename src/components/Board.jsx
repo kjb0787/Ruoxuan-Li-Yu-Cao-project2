@@ -2,10 +2,12 @@ import React from 'react';
 import './Board.css';
 import { Square } from './Square';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
 
 export function Board() {
     const boardState = useSelector((state) => state.game);
+    const dispatch = useDispatch();
+
     const boardComponent = [];
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
@@ -18,5 +20,12 @@ export function Board() {
             <div id="board">
                 {boardComponent}
             </div>
+            {/* <button onClick = {() => {
+                dispatch({
+                    type: 'startGame',
+                })
+            }}>
+                Start Game
+            </button> */}
         </div>);
 }
