@@ -2,11 +2,11 @@ const BOARD_LEN = 10;
 
 const defaultState = {
     gameStarted: false,
-    gameBoard: []
+    aiGameBoard: [],
+    humanGameBoard: []
 }
 
-function generateGameBoard() {
-    defaultState.gameBoard = [];
+function populateGameBoard(board) {
     for (let i = 0; i < BOARD_LEN; ++i) {
         let row = [];
         for (let j = 0; j < BOARD_LEN; ++j) {
@@ -15,9 +15,26 @@ function generateGameBoard() {
                 "symbol": " "
             })
         }
-        defaultState.gameBoard.push(row);
+        board.push(row);
     }
-    return defaultState.gameBoard;
+}
+
+
+function generateGameBoard() {
+    defaultState.aiGameBoard = [];
+    defaultState.humanGameBoard = [];
+    populateGameBoard(defaultState.aiGameBoard);
+    populateGameBoard(defaultState.humanGameBoard);
+    return defaultState;
+}
+
+function shipHitTry(board, action) {
+    const tile = board[action.x][action.y];
+    if (tile.isShip) {
+        board[action.x][action.y].symbol = "X";
+    } else if (!tile.isShip) {
+        board[action.x][action.y].symbol = "0";
+    }
 }
 
 export default function gameReducer(state, action) {
@@ -26,21 +43,27 @@ export default function gameReducer(state, action) {
     }
 
     if (action.type === 'boardClick') {
-        const tile = state[action.x][action.y];
         if (!defaultState.gameStarted) {
-            return [...state];
+            return {...state};
         }
-        if (tile.isShip) {
-            state[action.x][action.y].symbol = "X";
-        } else if (!tile.isShip) {
-            state[action.x][action.y].symbol = "0";
-        }
-        return [...state];
+        shipHitTry(state.humanGameBoard);
+        shipHitTry(state.aiGameBoard);
+        return {...state};
     }
 
-    if (action.type === 'startGame') {
+    if (action.type === 'startGameAI') {
         defaultState.gameStarted = true;
-        setShips(state);
+        console.log(state);
+        console.log(state.aiGameBoard);
+        debugger;
+        setShips(state.aiGameBoard);
+        return {...state};
+    }
+
+    if (action.type === 'startGameHuman') {
+        defaultState.gameStarted = true;
+        setShips(state.humanGameBoard);
+        return {...state};
     }
     
     if (action.type === 'RESET' || action.type === 'RESET_GAMEBOARD_ONLY') {
@@ -52,7 +75,7 @@ export default function gameReducer(state, action) {
                 };
             }
         }
-        return [...state];
+        return {...state};
     }
     return state;
 }
@@ -67,6 +90,8 @@ function setShips(state) {
         nums.add(rand);
         const start = getRandomInt(0, BOARD_LEN - shipLen);
         const row = rand;
+        console.log(state);
+        debugger;
         for (let i = start; i < start + shipLen; ++i) {
             state[row][i].isShip = true;
         }

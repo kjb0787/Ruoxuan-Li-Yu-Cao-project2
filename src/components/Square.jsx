@@ -7,11 +7,13 @@ export function Square(props) {
     
     return (
         <div onClick={() => {
-            dispatch({
-                type: 'boardClick',
-                x: props.x,
-                y: props.y,
-            })
+            if (props.player === "human") {
+                dispatch({
+                    type: 'boardClick',
+                    x: props.x,
+                    y: props.y,
+                });
+            }
         }
         } id="square">
             {props.symbol}

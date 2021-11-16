@@ -10,11 +10,11 @@ export function Game() {
             <div className="boards">
                 <div>
                     <h3>Your Board</h3>
-                    <Board />
+                    <Board player="human"/>
                 </div>
                 <div>
-                    <h3>Opponent’s Board 2</h3>
-                    <Board />
+                    <h3>AI’s Board</h3>
+                    <Board player="AI"/>
                 </div>
             </div>
         </div>);
