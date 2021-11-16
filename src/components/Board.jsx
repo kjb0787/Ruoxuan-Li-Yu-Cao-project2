@@ -20,12 +20,20 @@ export function Board() {
             <div id="board">
                 {boardComponent}
             </div>
-            {/* <button onClick = {() => {
+            <button onClick = {() => {
                 dispatch({
                     type: 'startGame',
                 })
             }}>
                 Start Game
-            </button> */}
+            </button>
+
+            <button onClick = {() => {
+                dispatch({
+                    type: 'RESET',
+                })
+            }}>
+                Reset
+            </button>
         </div>);
 }
