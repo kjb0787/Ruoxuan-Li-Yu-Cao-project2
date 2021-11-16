@@ -13,9 +13,9 @@ export function Board(props) {
         for (let j = 0; j < 10; j++) {
             let hitSymbol = "";
             if (props.player === "AI") {
-                hitSymbol = boardState.aiGameBoard;
+                hitSymbol = boardState.aiGameBoard[i][j].symbol;
             } else if (props.player === "human") {
-                hitSymbol = boardState.humanGameBoard;
+                hitSymbol = boardState.humanGameBoard[i][j].symbol;
             }
             boardComponent.push((<Square symbol={hitSymbol} x={i} y={j} player={props.player}/>))
         }

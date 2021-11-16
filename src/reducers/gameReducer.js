@@ -19,23 +19,14 @@ function populateGameBoard(board) {
     }
 }
 
-
 function generateGameBoard() {
     defaultState.aiGameBoard = [];
     defaultState.humanGameBoard = [];
     populateGameBoard(defaultState.aiGameBoard);
     populateGameBoard(defaultState.humanGameBoard);
-    return defaultState;
+    return {...defaultState};
 }
 
-function shipHitTry(board, action) {
-    const tile = board[action.x][action.y];
-    if (tile.isShip) {
-        board[action.x][action.y].symbol = "X";
-    } else if (!tile.isShip) {
-        board[action.x][action.y].symbol = "0";
-    }
-}
 
 export default function gameReducer(state, action) {
     if (state === undefined) {
@@ -46,8 +37,8 @@ export default function gameReducer(state, action) {
         if (!defaultState.gameStarted) {
             return {...state};
         }
-        shipHitTry(state.humanGameBoard);
-        shipHitTry(state.aiGameBoard);
+        shipHitTry(state.humanGameBoard, action);
+        shipHitTry(state.aiGameBoard, action);
         return {...state};
     }
 
@@ -67,14 +58,8 @@ export default function gameReducer(state, action) {
     }
     
     if (action.type === 'RESET' || action.type === 'RESET_GAMEBOARD_ONLY') {
-        for (let i = 0; i < state.length; i++) {
-            for (let j = 0; j < state.length; j++) {
-                state[i][j] = {
-                    "isShip": false,
-                    "symbol": " "
-                };
-            }
-        }
+        resetBoard(state.aiGameBoard);
+        resetBoard(state.humanGameBoard);
         return {...state};
     }
     return state;
@@ -90,8 +75,8 @@ function setShips(state) {
         nums.add(rand);
         const start = getRandomInt(0, BOARD_LEN - shipLen);
         const row = rand;
-        console.log(state);
-        debugger;
+        // console.log(state);
+        // debugger;
         for (let i = start; i < start + shipLen; ++i) {
             state[row][i].isShip = true;
         }
@@ -103,6 +88,27 @@ function setShips(state) {
     placeShip(2);
     console.log(state);
     return [...state];
+}
+
+function resetBoard(board) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            board[i][j] = {
+                "isShip": false,
+                "symbol": " "
+            };
+        }
+    }
+}
+
+
+function shipHitTry(board, action) {
+    const tile = board[action.x][action.y];
+    if (tile.isShip) {
+        board[action.x][action.y].symbol = "X";
+    } else if (!tile.isShip) {
+        board[action.x][action.y].symbol = "0";
+    }
 }
 
 function getRandomInt(min, max) {

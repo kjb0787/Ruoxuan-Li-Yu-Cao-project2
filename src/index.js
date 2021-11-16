@@ -9,7 +9,7 @@ import { Game } from './pages/Game';
 import reducers from './reducers/reducers';
 import { createStore} from 'redux';
 
-const store = createStore(reducers);
+const store = createStore(reducers, {game: undefined});
 
 ReactDOM.render(
   <React.StrictMode>
