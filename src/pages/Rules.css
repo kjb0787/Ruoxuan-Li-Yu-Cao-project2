@@ -6,3 +6,9 @@
     margin-bottom: auto;
     object-fit: fill;
 }
+
+@media screen and (max-width: 900px) {
+    .container {
+        max-width: 90%;
+    }
+}

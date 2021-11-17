@@ -1,8 +1,38 @@
+.gameContainer {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1020px;
+    margin-top: auto;
+    margin-bottom: auto;
+    object-fit: fill;    
+}
+
 
 .boards {
     display: grid;
     grid-template-columns: 400px 400px;
     justify-content: space-evenly;
+}
+
+@media screen and (max-width: 900px) {
+    .boards {
+        display: grid;
+        grid-template-columns: 400px;
+        justify-content: space-evenly;
+        margin-left: 20%;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 50px);
+        justify-content: space-evenly;
+        margin-top: 50px;
+        margin-left: 15%;
+    }
+
+    .button {
+        width: 100px;
+    }
 }
 
 .freeGameBoard {
