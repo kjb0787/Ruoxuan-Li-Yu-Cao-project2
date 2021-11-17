@@ -51,9 +51,7 @@ export default function gameReducer(state, action) {
     }
 
     if (action.type === 'startGame') {
-        if (state.gameStarted) {
-            resetAll(state);
-        }
+        resetAll(state);
         state.gameStarted = true;
         // console.log(state);
         // console.log(state.aiGameBoard);
