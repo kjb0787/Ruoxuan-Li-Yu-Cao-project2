@@ -1,5 +1,44 @@
+
 .boards {
     display: grid;
-    margin-left: 100px;
-    grid-template-columns: repeat(2, 400px);
+    grid-template-columns: 400px 400px;
+    justify-content: space-evenly;
+}
+
+.freeGameBoard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.buttons {
+    display: grid;
+    color: #333333;
+    grid-template-columns: repeat(2, 200px);
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align:center;
+    color: #333333;
+    border-width: 2px;
+    border-style: solid;
+    font-family: 'Ubuntu', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
 }

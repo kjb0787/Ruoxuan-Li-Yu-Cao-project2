@@ -5,19 +5,16 @@ import './Game.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-export function Game() {
+export function FreeGame() {
     const dispatch = useDispatch();
     const boardState = useSelector((state) => state.game);
-    // TODO: do I need two 10*10 arrays to store two different boards
-
     let winMessage = "";
-    // TODO: WHY cannot i use integers in defaultState as win c, but array works
-    let humanWinCount, aiWinCount;
+    let humanWinCount;
 
-    [aiWinCount, humanWinCount] = [boardState.aiWinCount, boardState.humanWinCount];
+    humanWinCount = boardState.humanWinCount;
 
-    if (aiWinCount === 17 || humanWinCount === 17) {
-        winMessage = humanWinCount === 17 ? "You won! Congrats!!" : "You lost... AI rules the world now.";
+    if (humanWinCount === 17) {
+        winMessage = "You won! Congrats!!";
         dispatch({
             type: 'stopGame',
         });
@@ -44,8 +41,8 @@ export function Game() {
                 </button>
             </div>
 
-            <div className="boards">
-                <div>
+            <div className="freeGameBoard">
+                <div className="hidden">
                     <h3>Your Board</h3>
                     <Board player="AI" />
                 </div>

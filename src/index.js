@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Home from './pages/Home';
 import Rules from './pages/Rules';
+import { FreeGame } from './pages/FreeGame';
 import { Game } from './pages/Game';
 import reducers from './reducers/reducers';
-import { createStore} from 'redux';
+import { createStore } from 'redux';
 
 const store = createStore(reducers);
 
@@ -19,6 +20,7 @@ ReactDOM.render(
           <Route exact path="/" element={<Home />} />
           <Route exact path="/rules" element={<Rules />} />
           <Route exact path="/game" element={<Game />} />
+          <Route exact path="/freegame" element={<FreeGame />} />
         </Routes>
       </Router>
     </Provider>

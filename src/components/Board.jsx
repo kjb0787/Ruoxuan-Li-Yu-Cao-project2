@@ -2,7 +2,6 @@ import React from 'react';
 import './Board.css';
 import { Square } from './Square';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 
 export function Board(props) {
     const boardState = useSelector((state) => state.game);
@@ -18,7 +17,7 @@ export function Board(props) {
                 hitSymbol = boardState.humanGameBoard[i][j].symbol;
                 isShip = boardState.humanGameBoard[i][j].isShip;
             }
-            boardComponent.push((<Square symbol={hitSymbol} x={i} y={j} player={props.player} isShip={isShip}/>))
+            boardComponent.push((<Square symbol={hitSymbol} x={i} y={j} player={props.player} isShip={isShip} />))
         }
     }
 

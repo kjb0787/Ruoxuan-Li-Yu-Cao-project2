@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 
 export function Square(props) {
     const dispatch = useDispatch();
-    let styleString = "skyblue";
+    let styleString = "#468FAF";
     if (props.isShip) {
         styleString = "grey";
     }
-    
+
     return (
         <div onClick={() => {
             if (props.player === "human") {
@@ -19,7 +19,7 @@ export function Square(props) {
                 });
             }
         }
-        } id="square" style={{backgroundColor: styleString}}>
+        } id="square" style={{ backgroundColor: styleString }}>
             {props.symbol}
         </div>);
 }

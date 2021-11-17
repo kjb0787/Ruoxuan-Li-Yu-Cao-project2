@@ -1,12 +1,19 @@
 #nav {
-    height: 30px;
+    height: 50px;
     width: 100%;
-    background-color: bisque;
+    background-color: #013A63;
     position: sticky;
     top: 0;
     display: grid;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: repeat(4, 25%);
     justify-items: center;
     align-items: center;
+    
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
 }
 
