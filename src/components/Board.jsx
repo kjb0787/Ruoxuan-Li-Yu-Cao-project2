@@ -6,18 +6,19 @@ import { useDispatch } from 'react-redux';
 
 export function Board(props) {
     const boardState = useSelector((state) => state.game);
-    const dispatch = useDispatch();
 
     const boardComponent = [];
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             let hitSymbol = "";
-            if (props.player === "AI") {
+            let isShip = false;
+            if (props.player === "human") {
                 hitSymbol = boardState.aiGameBoard[i][j].symbol;
-            } else if (props.player === "human") {
+            } else if (props.player === "AI") {
                 hitSymbol = boardState.humanGameBoard[i][j].symbol;
+                isShip = boardState.humanGameBoard[i][j].isShip;
             }
-            boardComponent.push((<Square symbol={hitSymbol} x={i} y={j} player={props.player}/>))
+            boardComponent.push((<Square symbol={hitSymbol} x={i} y={j} player={props.player} isShip={isShip}/>))
         }
     }
 
@@ -26,26 +27,5 @@ export function Board(props) {
             <div id="board">
                 {boardComponent}
             </div>
-            <button onClick = {() => {
-                if (props.player === "AI") {
-                    dispatch({
-                        type: 'startGameAI',
-                    })
-                } else if (props.player === "human") {
-                    dispatch({
-                        type: 'startGameHuman',
-                    })
-                }
-            }}>
-                Start Game
-            </button>
-
-            <button onClick = {() => {
-                dispatch({
-                    type: 'RESET',
-                })
-            }}>
-                Reset
-            </button>
         </div>);
 }

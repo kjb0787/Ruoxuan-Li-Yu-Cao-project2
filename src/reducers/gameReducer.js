@@ -2,6 +2,7 @@ const BOARD_LEN = 10;
 
 const defaultState = {
     gameStarted: false,
+    countArray: [0, 0],
     aiGameBoard: [],
     humanGameBoard: []
 }
@@ -22,6 +23,7 @@ function populateGameBoard(board) {
 function generateGameBoard() {
     defaultState.aiGameBoard = [];
     defaultState.humanGameBoard = [];
+    defaultState.countArray = [0, 0];
     populateGameBoard(defaultState.aiGameBoard);
     populateGameBoard(defaultState.humanGameBoard);
     return {...defaultState};
@@ -37,27 +39,31 @@ export default function gameReducer(state, action) {
         if (!defaultState.gameStarted) {
             return {...state};
         }
-        shipHitTry(state.humanGameBoard, action);
-        shipHitTry(state.aiGameBoard, action);
+        humanShipHitTry(state, action);
         return {...state};
     }
 
-    if (action.type === 'startGameAI') {
+    if (action.type === 'stopGame') {
+        defaultState.gameStarted = false;
+    }
+
+    if (action.type === 'startGame') {
+        if (defaultState.gameStarted) {
+            defaultState.countArray = [0, 0];
+            resetBoard(state.aiGameBoard);
+            resetBoard(state.humanGameBoard);
+        }
         defaultState.gameStarted = true;
-        console.log(state);
-        console.log(state.aiGameBoard);
-        debugger;
+        // console.log(state);
+        // console.log(state.aiGameBoard);
+        // debugger;
         setShips(state.aiGameBoard);
-        return {...state};
-    }
-
-    if (action.type === 'startGameHuman') {
-        defaultState.gameStarted = true;
         setShips(state.humanGameBoard);
         return {...state};
     }
     
     if (action.type === 'RESET' || action.type === 'RESET_GAMEBOARD_ONLY') {
+        defaultState.countArray = [0, 0];
         resetBoard(state.aiGameBoard);
         resetBoard(state.humanGameBoard);
         return {...state};
@@ -101,13 +107,37 @@ function resetBoard(board) {
     }
 }
 
-
-function shipHitTry(board, action) {
+function humanShipHitTry(state, action) {
+    const board = state.aiGameBoard;
     const tile = board[action.x][action.y];
+    if (tile.symbol === " ") {
+        aiShipHitTry(state.humanGameBoard);
+        if (tile.isShip) {
+            defaultState.countArray[0]++;
+            board[action.x][action.y].symbol = "X";
+            console.log("human hit try");
+            console.log(defaultState.countArray[0]);
+        } else if (!tile.isShip) {
+            board[action.x][action.y].symbol = "0";
+        }
+    }
+}
+
+function aiShipHitTry(board) {
+    const set = new Set();
+    let x = getRandomInt(0, BOARD_LEN);
+    let y = getRandomInt(0, BOARD_LEN);
+    while (set.has([x, y])) {
+        x = getRandomInt(0, BOARD_LEN);
+        y = getRandomInt(0, BOARD_LEN);
+    }
+    set.add([x, y]);
+    const tile = board[x][y];
     if (tile.isShip) {
-        board[action.x][action.y].symbol = "X";
+        board[x][y].symbol = "X";
+        defaultState.countArray[1]++;
     } else if (!tile.isShip) {
-        board[action.x][action.y].symbol = "0";
+        board[x][y].symbol = "0";
     }
 }
 

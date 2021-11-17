@@ -4,6 +4,10 @@ import { useDispatch } from 'react-redux';
 
 export function Square(props) {
     const dispatch = useDispatch();
+    let styleString = "skyblue";
+    if (props.isShip) {
+        styleString = "grey";
+    }
     
     return (
         <div onClick={() => {
@@ -15,7 +19,7 @@ export function Square(props) {
                 });
             }
         }
-        } id="square">
+        } id="square" style={{backgroundColor: styleString}}>
             {props.symbol}
         </div>);
 }
