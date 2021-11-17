@@ -11,10 +11,11 @@ export function Game() {
     // TODO: do I need two 10*10 arrays to store two different boards
 
     let winMessage = "";
-    // TODO: WHY cannot i use integers in defaultState as win c, but array works
     let humanWinCount, aiWinCount;
 
     [aiWinCount, humanWinCount] = [boardState.aiWinCount, boardState.humanWinCount];
+    console.log("ai win count: " + aiWinCount);
+    console.log("human win count: " + humanWinCount);
 
     if (aiWinCount === 17 || humanWinCount === 17) {
         winMessage = humanWinCount === 17 ? "You won! Congrats!!" : "You lost... AI rules the world now.";

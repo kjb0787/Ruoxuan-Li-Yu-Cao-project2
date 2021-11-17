@@ -144,14 +144,12 @@ function humanShipHitTry(state, action) {
 
 function aiShipHitTry(state) {
     const board = state.humanGameBoard;
-    const set = new Set();
-    let x = getRandomInt(0, BOARD_LEN);
-    let y = getRandomInt(0, BOARD_LEN);
-    while (set.has([x, y])) {
+    let x, y;
+    do {
         x = getRandomInt(0, BOARD_LEN);
         y = getRandomInt(0, BOARD_LEN);
-    }
-    set.add([x, y]);
+    } while (board[x][y].symbol === "X" || board[x][y].symbol === "0");
+
     const tile = board[x][y];
     if (tile.isShip) {
         board[x][y].symbol = "X";
