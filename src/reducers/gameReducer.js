@@ -5,7 +5,8 @@ const defaultState = {
     humanWinCount: 0,
     aiWinCount: 0,
     aiGameBoard: [],
-    humanGameBoard: []
+    humanGameBoard: [],
+    isHorizontal: true,
 }
 
 function populateGameBoard(board) {
@@ -28,7 +29,7 @@ function generateGameBoard() {
     defaultState.aiWinCount = 0;
     populateGameBoard(defaultState.aiGameBoard);
     populateGameBoard(defaultState.humanGameBoard);
-    return {...defaultState};
+    return { ...defaultState };
 }
 
 
@@ -39,10 +40,10 @@ export default function gameReducer(state, action) {
 
     if (action.type === 'boardClick') {
         if (!state.gameStarted) {
-            return {...state};
+            return { ...state };
         }
         humanShipHitTry(state, action);
-        return {...state};
+        return { ...state };
     }
 
     if (action.type === 'stopGame') {
@@ -57,32 +58,47 @@ export default function gameReducer(state, action) {
         // console.log(state);
         // console.log(state.aiGameBoard);
         // debugger;
-        setShips(state.aiGameBoard);
-        setShips(state.humanGameBoard);
-        return {...state};
+        setShips(state.aiGameBoard, state.isHorizontal);
+        setShips(state.humanGameBoard, state.isHorizontal);
+        return { ...state };
     }
-    
+
+    if (action.type === "ChangeDirection") {
+        resetAll(state);
+        state.gameStarted = true;
+        state.isHorizontal = !state.isHorizontal;
+        setShips(state.aiGameBoard, state.isHorizontal);
+        setShips(state.humanGameBoard, state.isHorizontal);
+        return { ...state };
+    }
+
     if (action.type === 'RESET' || action.type === 'RESET_GAMEBOARD_ONLY') {
         resetAll(state);
-        return {...state};
+        return { ...state };
     }
     return state;
 }
 
-function setShips(state) {
+function setShips(state, isHorizontal) {
     const nums = new Set();
     function placeShip(shipLen) {
         let rand = getRandomInt(0, BOARD_LEN);
         while (nums.has(rand)) {
-            rand = getRandomInt(0, BOARD_LEN);  
+            rand = getRandomInt(0, BOARD_LEN);
         }
         nums.add(rand);
         const start = getRandomInt(0, BOARD_LEN - shipLen);
         const row = rand;
         // console.log(state);
         // debugger;
-        for (let i = start; i < start + shipLen; ++i) {
-            state[row][i].isShip = true;
+        if (isHorizontal) {
+            for (let i = start; i < start + shipLen; ++i) {
+                state[row][i].isShip = true;
+            }
+        } else {
+            for (let i = start; i < start + shipLen; ++i) {
+                state[i][row].isShip = true;
+            }
         }
     }
     placeShip(5);

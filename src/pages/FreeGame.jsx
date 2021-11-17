@@ -35,6 +35,14 @@ export function FreeGame() {
 
                     <button onClick={() => {
                         dispatch({
+                            type: 'ChangeDirection',
+                        })
+                    }} className="button">
+                        Change Ship Direction
+                    </button>
+
+                    <button onClick={() => {
+                        dispatch({
                             type: 'RESET',
                         })
                     }} className="button">

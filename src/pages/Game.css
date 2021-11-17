@@ -7,33 +7,12 @@
     object-fit: fill;    
 }
 
-
 .boards {
     display: grid;
     grid-template-columns: 400px 400px;
     justify-content: space-evenly;
 }
 
-@media screen and (max-width: 900px) {
-    .boards {
-        display: grid;
-        grid-template-columns: 400px;
-        justify-content: space-evenly;
-        margin-left: 20%;
-    }
-
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 50px);
-        justify-content: space-evenly;
-        margin-top: 50px;
-        margin-left: 15%;
-    }
-
-    .button {
-        width: 100px;
-    }
-}
 
 .freeGameBoard {
     display: flex;
@@ -45,7 +24,7 @@
 .buttons {
     display: grid;
     color: #333333;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(3, 180px);
     justify-content: space-evenly;
     margin-top: 50px;
 }
@@ -71,4 +50,23 @@
 
 .hidden {
     display: none;
+}
+
+@media screen and (max-width: 900px) {
+    .gameContainer {
+        width: 100%;
+    }
+
+    .boards {
+        display: grid;
+        grid-template-columns: 100%;
+        justify-content: space-evenly;
+        margin-left: 20%;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: 70%;
+        justify-content: space-evenly;
+    }
 }
