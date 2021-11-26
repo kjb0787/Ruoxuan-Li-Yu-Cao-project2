@@ -1,6 +1,5 @@
 ## A battle ship for you to play online at any time!
 
-## Game Interface
 
 ![game start](./images/battleship_start.png)
 
